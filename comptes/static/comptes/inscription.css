@@ -1,0 +1,86 @@
+/* Couleurs du projet, avec une présentation sobre inspirée de Material Design. */
+:root {
+    --green: #184c3b;
+    --cream: #f6f5ed;
+    --text: #263b32;
+    --muted: #607068;
+    --border: #c4cec6;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--text); font-family: Arial, sans-serif; line-height: 1.5; }
+a { color: var(--green); }
+.site-header { max-width: 1240px; margin: auto; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 700; text-decoration: none; }
+.brand-icon { background: var(--green); color: var(--cream); width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 32px; }
+.brand-country { display: block; font-size: 10px; letter-spacing: 3px; font-weight: 400; }
+.back-link { font-size: 14px; text-decoration: none; }
+.back-link:hover { text-decoration: underline; }
+main { max-width: 1160px; margin: 20px auto; padding: 0 24px; }
+.registration-card { background: white; border: 1px solid #e3e7de; border-radius: 28px; padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; box-shadow: 0 8px 32px #183b2606; }
+.introduction { padding-top: 12px; }
+.eyebrow { color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 2px; }
+h1 { margin: 24px 0 20px; font-size: clamp(30px, 3.2vw, 42px); line-height: 1.2; letter-spacing: -1.5px; font-weight: 500; }
+.description { color: var(--muted); max-width: 330px; font-size: 16px; }
+.landscape { height: 180px; max-width: 340px; margin-top: 46px; background: #edf0dd; border-radius: 100px 100px 18px 18px; position: relative; overflow: hidden; }
+.sun { position: absolute; width: 48px; height: 48px; border-radius: 50%; background: #e4bf67; right: 60px; top: 26px; }
+.hill { position: absolute; width: 130%; height: 160px; border-radius: 50%; }
+.hill-back { background: #a6bb91; top: 90px; left: -110px; transform: rotate(15deg); }
+.hill-front { background: #315d45; top: 115px; left: 50px; transform: rotate(-18deg); }
+.field-lines { position: absolute; inset: 130px -20px -30px; transform: rotate(-15deg); background: repeating-linear-gradient(90deg, transparent 0 28px, #e0e8c733 29px 31px); }
+.caption { color: var(--muted); font-size: 12px; margin-top: 18px; }
+h2 { font-size: 26px; font-weight: 500; letter-spacing: -.5px; margin: 0 0 6px; }
+.form-intro { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px; }
+.field { grid-column: 1 / -1; min-width: 0; }
+.half-width { grid-column: auto; }
+label { display: block; font-size: 13px; margin-bottom: 6px; font-weight: 600; }
+input { display: block; width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; font: inherit; color: var(--text); background: white; }
+input:hover { border-color: var(--green); }
+input:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+input[aria-invalid="true"] { border-color: #a52a26; }
+.help-text { color: var(--muted); font-size: 12px; margin-top: 7px; }
+.help-text ul { padding-left: 17px; margin: 0; }
+.errorlist { color: #a52a26; font-size: 13px; padding-left: 18px; margin: 7px 0 0; }
+.error-summary { background: #fff0ed; color: #912820; padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 20px; }
+.required-note { font-size: 12px; color: var(--muted); margin: 20px 0 14px; }
+button { width: 100%; border: 0; background: var(--green); color: white; border-radius: 24px; padding: 13px 24px; font: inherit; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+button:hover { background: #103d2e; box-shadow: 0 3px 8px #184c3b26; }
+button:focus-visible, a:focus-visible { outline: 3px solid #b38832; outline-offset: 4px; }
+footer { padding: 12px 24px 28px; text-align: center; font-size: 12px; color: var(--muted); }
+footer span { padding: 0 8px; }
+@media (max-width: 800px) {
+    .registration-card { gap: 32px; padding: 32px; grid-template-columns: 1fr; }
+    .introduction { padding: 0; }
+    h1 { margin: 12px 0; }
+    .description { max-width: none; }
+    .landscape, .caption { display: none; }
+    .site-header { padding: 22px 24px; }
+    main { margin-top: 0; }
+}
+@media (max-width: 440px) {
+    .registration-card { padding: 24px 20px; border-radius: 20px; }
+    main { padding: 0 12px; }
+    .brand { font-size: 15px; }
+    .back-link { font-size: 12px; }
+    .half-width { grid-column: 1 / -1; }
+}
+
+/* Pages de connexion et espace personnel. */
+.account-main { max-width: 560px; }
+.account-card { background: white; padding: 36px; border: 1px solid #e3e7de; border-radius: 24px; }
+.account-card h1 { font-size: 30px; }
+.login-field { margin-bottom: 22px; }
+.account-link { font-size: 14px; margin-top: 24px; }
+.success-message { background: #edf4ec; color: var(--green); padding: 14px; border-radius: 8px; }
+.account-navigation { padding-left: 20px; margin-bottom: 32px; }
+.account-navigation li { margin-bottom: 14px; }
+@media (max-width: 440px) { .account-card { padding: 24px; } }
+
+.header .nav-actions button { width:auto; background:none; color:var(--green); padding:8px 0; font-weight:normal; box-shadow:none; }
+body > main { max-width:none; margin:0; padding:0; }
+.footer { text-align:left; }
+
+.rule-valid { color: #246338; }
+.rule-invalid { color: #ad2925; }
+.rule-pending { color: #607068; }
+button:disabled { background: #d6ded6; color: #556156; cursor: not-allowed; box-shadow: none; }

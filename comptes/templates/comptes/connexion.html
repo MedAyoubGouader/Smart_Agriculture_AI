@@ -1,0 +1,21 @@
+{% extends "comptes/base.html" %}
+{% block title %}Se connecter{% endblock %}
+{% block account_content %}
+    <span class="eyebrow">BIENVENUE</span>
+    <h1>Se connecter</h1>
+    <p class="form-intro">Retrouvez votre espace Smart Agriculture.</p>
+    <form method="post" action="{% url 'comptes:connexion' %}">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="error-summary" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}
+            <div class="login-field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit">Se connecter <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="account-link">Pas encore de compte ? <a href="{% url 'comptes:inscription' %}">Créer un compte</a></p>
+{% endblock %}

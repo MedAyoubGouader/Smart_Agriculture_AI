@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import RedirectView
+from cartographie import views
 
 urlpatterns = [
-    path("", RedirectView.as_view(pattern_name="cartographie:index", permanent=False)),
+    path("", views.accueil, name="accueil"),
     path("admin/", admin.site.urls),
     path("carte/", include("cartographie.urls")),
     path("comptes/", include("comptes.urls")),

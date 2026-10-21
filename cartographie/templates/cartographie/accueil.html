@@ -1,0 +1,26 @@
+{% extends "cartographie/base.html" %}
+{% block content %}
+<section class="hero wrapper">
+    <div><span class="eyebrow">L’AGRICULTURE TUNISIENNE, ÉCLAIRÉE PAR LES DONNÉES</span>
+        <h1>Mieux comprendre.<br><em>Mieux cultiver.</em></h1>
+        <p class="lead">Un espace pour explorer les régions agricoles de Tunisie et préparer vos décisions, de la culture au rendement.</p>
+        <div class="actions"><a class="button" href="{% url 'cartographie:index' %}">Explorer la carte <span aria-hidden="true">↗</span></a><a class="button secondary" href="{% if user.is_authenticated %}{% url 'comptes:index' %}{% else %}{% url 'comptes:inscription' %}{% endif %}">{% if user.is_authenticated %}Accéder à mon espace{% else %}Créer mon espace{% endif %}</a></div>
+        <p class="subtle">Une plateforme pensée pour le contexte tunisien.</p>
+    </div>
+    <div class="hero-art" role="img" aria-label="Illustration de champs agricoles sous le soleil">
+        <span class="art-caption">DE LA TERRE À LA DONNÉE</span><div class="sun"></div><div class="ridge back"></div><div class="ridge front"></div><div class="furrows"></div><span class="art-label">Un nouveau regard sur nos terres.</span>
+    </div>
+</section>
+<section class="strip"><div class="wrapper strip-inner"><span>01 · Explorer les régions</span><span>02 · Comprendre les cultures</span><span>03 · Préparer ses décisions</span></div></section>
+<section class="wrapper section">
+    <div class="section-heading"><div><span class="eyebrow">VOS OUTILS AGRICOLES</span><h2>Tout commence par une meilleure information.</h2></div><p>Les modules sont en cours de développement. Aucun résultat agricole n’est encore calculé.</p></div>
+    <div class="cards">
+        <article class="card"><span class="number">01 / TERRITOIRE</span><h3>Carte agricole</h3><p>Explorer les gouvernorats et, à terme, visualiser leur aptitude pour une culture sélectionnée.</p><a href="{% url 'cartographie:index' %}">Découvrir le module →</a></article>
+        <article class="card"><span class="number">02 / PRÉVISION</span><h3>Estimation du rendement</h3><p>Un futur modèle ML pour estimer un rendement à partir des données agricoles disponibles.</p><a href="{% url 'prediction:index' %}">Accéder au module →</a></article>
+        <article class="card"><span class="number">03 / SUIVI</span><h3>Mes analyses</h3><p>Un espace personnel destiné à retrouver vos résultats et comparer vos analyses.</p><a href="{% url 'analyses:index' %}">Ouvrir mon espace →</a></article>
+    </div>
+</section>
+<section class="how section" id="fonctionnement"><div class="wrapper"><span class="eyebrow">UN PARCOURS SIMPLE</span><h2>De votre question à une décision éclairée.</h2><div class="steps"><div><b>01</b><h3>Explorez</h3><p>Découvrez le projet et ses modules sans créer de compte.</p></div><div><b>02</b><h3>Créez votre espace</h3><p>Inscrivez-vous pour accéder aux pages personnelles.</p></div><div><b>03</b><h3>Retrouvez vos outils</h3><p>Accédez aux modules de rendement et d’analyses au fil de leur mise en service.</p></div></div></div></section>
+<section class="wrapper section about" id="projet"><div><span class="eyebrow">NOTRE DÉMARCHE</span><h2>Conçu en Tunisie.<br>Pour comprendre nos terres.</h2></div><div><p>Smart Agriculture Tunisia est un projet étudiant qui associe une application Django à l’analyse de données agricoles et au machine learning.</p><p>Notre objectif : rendre l’information plus accessible, en distinguant clairement les données disponibles, les estimations et leurs limites.</p><p class="subtle">Les résultats futurs seront des aides à la décision, à interpréter selon les conditions réelles du terrain.</p></div></section>
+<section class="wrapper section faq" id="questions"><span class="eyebrow">QUESTIONS FRÉQUENTES</span><h2>Avant de commencer</h2><details><summary>Que puis-je utiliser aujourd’hui ?</summary><p>Vous pouvez créer un compte, vous connecter et parcourir le site. La carte interactive, les calculs de rendement et l’historique des analyses sont en préparation.</p></details><details><summary>Faut-il un compte pour consulter le site ?</summary><p>L’accueil et la page de carte sont publics. Un compte est nécessaire pour accéder à votre espace, aux analyses et au module de rendement.</p></details><details><summary>Les estimations sont-elles garanties ?</summary><p>Non. Les futurs résultats dépendront de la qualité des données et du modèle. Ils ne remplaceront pas une observation du terrain ou un avis agronomique.</p></details></section>
+{% endblock %}

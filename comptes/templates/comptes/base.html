@@ -1,0 +1,5 @@
+{% extends "cartographie/base.html" %}
+{% load static %}
+{% block title %}Mon compte{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'comptes/inscription.css' %}">{% endblock %}
+{% block content %}<div class="account-main wrapper"><section class="account-card">{% block account_content %}{% endblock %}</section></div>{% endblock %}

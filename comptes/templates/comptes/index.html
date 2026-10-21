@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Comptes — Smart Agriculture</title>
-</head>
-<body>
-    <h1>Comptes</h1>
-    <p>Smart Agriculture Tunisia</p>
-    <nav aria-label="Navigation principale">
-        <ul>
-        <li><a href="{% url 'cartographie:index' %}">Carte agricole</a></li>
-        <li><a href="{% url 'comptes:index' %}">Comptes</a></li>
-        <li><a href="{% url 'referentiels:index' %}">Référentiels agricoles</a></li>
-        <li><a href="{% url 'donnees:index' %}">Données agricoles</a></li>
-        <li><a href="{% url 'analyses:index' %}">Analyses</a></li>
-        <li><a href="{% url 'prediction:index' %}">Estimation du rendement</a></li>
+{% extends "comptes/base.html" %}
+{% block account_content %}
+    <span class="eyebrow">MON ESPACE</span>
+    <h1>Bonjour {{ user.first_name|default:user.username }} !</h1>
+    <p class="form-intro">Vous êtes connecté à Smart Agriculture Tunisia.</p>
+    <nav aria-label="Mon espace">
+        <ul class="account-navigation">
+            <li><a href="{% url 'cartographie:index' %}">Consulter la carte agricole</a></li>
+            <li><a href="{% url 'analyses:index' %}">Mes analyses</a></li>
+            <li><a href="{% url 'prediction:index' %}">Estimer un rendement</a></li>
+            {% if user.is_staff %}<li><a href="{% url 'admin:index' %}">Administration</a></li>{% endif %}
         </ul>
     </nav>
-</body>
-</html>
+    <form method="post" action="{% url 'comptes:deconnexion' %}">
+        {% csrf_token %}
+        <button type="submit">Se déconnecter</button>
+    </form>
+{% endblock %}

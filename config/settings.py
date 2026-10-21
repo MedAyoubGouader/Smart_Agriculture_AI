@@ -89,3 +89,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Navigation après authentification.
+LOGIN_URL = "comptes:connexion"
+LOGIN_REDIRECT_URL = "comptes:index"
+LOGOUT_REDIRECT_URL = "comptes:connexion"
+
+AUTHENTICATION_BACKENDS = ["comptes.backends.ConnexionBackend"]

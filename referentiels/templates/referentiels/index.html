@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Référentiels agricoles — Smart Agriculture</title>
-</head>
-<body>
-    <h1>Référentiels agricoles</h1>
-    <p>Smart Agriculture Tunisia</p>
-    <nav aria-label="Navigation principale">
-        <ul>
-        <li><a href="{% url 'cartographie:index' %}">Carte agricole</a></li>
-        <li><a href="{% url 'comptes:index' %}">Comptes</a></li>
-        <li><a href="{% url 'referentiels:index' %}">Référentiels agricoles</a></li>
-        <li><a href="{% url 'donnees:index' %}">Données agricoles</a></li>
-        <li><a href="{% url 'analyses:index' %}">Analyses</a></li>
-        <li><a href="{% url 'prediction:index' %}">Estimation du rendement</a></li>
-        </ul>
-    </nav>
-</body>
-</html>
+{% extends "cartographie/base.html" %}
+{% block title %}Cultures et régions{% endblock %}
+{% block content %}<section class="wrapper section module"><span class="eyebrow">SMART AGRICULTURE TUNISIA</span><h1>Cultures et régions</h1><p class="lead">Les repères de votre exploration</p><div class="empty-state"><span class="badge">En préparation</span><h2>La consultation des référentiels est en préparation.</h2><p>Cet espace présentera les cultures, gouvernorats et saisons utilisés par la plateforme.</p><a class="button secondary" href="{% url 'accueil' %}">Retour à l’accueil</a></div></section>{% endblock %}
