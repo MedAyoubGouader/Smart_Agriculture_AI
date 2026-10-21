@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Référentiels agricoles — Smart Agriculture</title>
+</head>
+<body>
+    <h1>Référentiels agricoles</h1>
+    <p>Smart Agriculture Tunisia</p>
+    <nav aria-label="Navigation principale">
+        <ul>
+        <li><a href="{% url 'cartographie:index' %}">Carte agricole</a></li>
+        <li><a href="{% url 'comptes:index' %}">Comptes</a></li>
+        <li><a href="{% url 'referentiels:index' %}">Référentiels agricoles</a></li>
+        <li><a href="{% url 'donnees:index' %}">Données agricoles</a></li>
+        <li><a href="{% url 'analyses:index' %}">Analyses</a></li>
+        <li><a href="{% url 'prediction:index' %}">Estimation du rendement</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
