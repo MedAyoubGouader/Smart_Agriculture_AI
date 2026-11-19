@@ -10,16 +10,41 @@ const api = axios.create({
 const CLE_ACCES = 'sa_jeton_acces'
 const CLE_RAFRAICHISSEMENT = 'sa_jeton_rafraichissement'
 
+// Le stockage peut être indisponible (navigation privée, cookies bloqués) : on ne plante jamais.
+const stockage = {
+  lire(cle) {
+    try {
+      return window.localStorage.getItem(cle)
+    } catch {
+      return null
+    }
+  },
+  ecrire(cle, valeur) {
+    try {
+      window.localStorage.setItem(cle, valeur)
+    } catch {
+      // Session limitée à l'onglet : l'utilisateur devra se reconnecter au rechargement.
+    }
+  },
+  effacer(cle) {
+    try {
+      window.localStorage.removeItem(cle)
+    } catch {
+      // rien à effacer
+    }
+  },
+}
+
 export const jetons = {
-  acces: () => localStorage.getItem(CLE_ACCES),
-  rafraichissement: () => localStorage.getItem(CLE_RAFRAICHISSEMENT),
+  acces: () => stockage.lire(CLE_ACCES),
+  rafraichissement: () => stockage.lire(CLE_RAFRAICHISSEMENT),
   enregistrer({ access, refresh }) {
-    if (access) localStorage.setItem(CLE_ACCES, access)
-    if (refresh) localStorage.setItem(CLE_RAFRAICHISSEMENT, refresh)
+    if (access) stockage.ecrire(CLE_ACCES, access)
+    if (refresh) stockage.ecrire(CLE_RAFRAICHISSEMENT, refresh)
   },
   effacer() {
-    localStorage.removeItem(CLE_ACCES)
-    localStorage.removeItem(CLE_RAFRAICHISSEMENT)
+    stockage.effacer(CLE_ACCES)
+    stockage.effacer(CLE_RAFRAICHISSEMENT)
   },
 }
 

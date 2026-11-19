@@ -26,7 +26,7 @@ export default function EnTete() {
       <div className="nav-actions">
         {utilisateur ? (
           <>
-            <NavLink className="bouton secondaire" to="/profil">
+            <NavLink className="bouton secondaire" to="/espace">
               Mon espace
             </NavLink>
             <button type="button" className="bouton-texte" onClick={seDeconnecter}>

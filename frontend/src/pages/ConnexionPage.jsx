@@ -13,7 +13,7 @@ export default function ConnexionPage() {
   const [erreurs, setErreurs] = useState({})
   const [envoi, setEnvoi] = useState(false)
 
-  if (utilisateur) return <Navigate to={location.state?.suivant ?? '/profil'} replace />
+  if (utilisateur) return <Navigate to={location.state?.suivant ?? '/espace'} replace />
 
   async function envoyer(evenement) {
     evenement.preventDefault()
@@ -21,7 +21,7 @@ export default function ConnexionPage() {
     setErreurs({})
     try {
       await connexion(identifiant.trim(), motDePasse)
-      navigate(location.state?.suivant ?? '/profil', { replace: true })
+      navigate(location.state?.suivant ?? '/espace', { replace: true })
     } catch (erreur) {
       setErreurs(erreursDeChamps(erreur))
       setEnvoi(false)

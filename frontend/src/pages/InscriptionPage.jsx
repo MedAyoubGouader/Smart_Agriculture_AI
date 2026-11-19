@@ -39,7 +39,7 @@ export default function InscriptionPage() {
     return () => clearTimeout(minuteur)
   }, [username, first_name, last_name, email, password1])
 
-  if (utilisateur) return <Navigate to="/profil" replace />
+  if (utilisateur) return <Navigate to="/espace" replace />
 
   const identiques = donnees.password1 !== '' && donnees.password1 === donnees.password2
   const peutEnvoyer = etatVerification === 'ok' && identiques && !envoi

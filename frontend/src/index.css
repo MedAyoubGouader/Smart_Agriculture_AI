@@ -520,3 +520,35 @@ button:focus-visible {
     grid-column: 1 / -1;
   }
 }
+
+/* --- Espace connecté (pas encore traité) --------------------------------------------- */
+.page-vide {
+  min-height: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.page-vide-titre {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.page-vide-texte {
+  color: var(--discret);
+  margin: 0;
+}
+
+.page-vide-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 14px;
+}
