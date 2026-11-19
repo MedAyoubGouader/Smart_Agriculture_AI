@@ -296,3 +296,49 @@
 @media (prefers-reduced-motion: reduce) {
   .cp *, .cp *::before { transition: none !important; animation: none !important; }
 }
+
+/* Fenêtre de compte (connexion / inscription), même style que la carte */
+.cp .modale-compte { width: min(520px, 100%); height: auto; max-height: min(760px, 100%); }
+.cp .mc-h { display: flex; align-items: center; justify-content: space-between; padding: 14px 14px 10px 20px; }
+.cp .mc-h .logo { font-size: 14px; }
+.cp .onglets { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0 20px; padding: 4px; border-radius: 12px; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--line); }
+.cp .onglets button { height: 34px; border-radius: 9px; color: var(--mut); font-weight: 500; transition: background 0.15s, color 0.15s; }
+.cp .onglets button:hover { color: var(--text); }
+.cp .onglets button.on { background: rgba(236, 239, 230, 0.1); color: var(--text); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+.cp .mc-b { flex: 1; min-height: 0; overflow: auto; padding: 18px 20px 6px; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.12) transparent; }
+.cp .mc-f { border-top: 1px solid var(--line); padding: 12px 20px 16px; text-align: center; }
+.cp .lien-discret { color: var(--mut); font-size: 13px; }
+.cp .lien-discret:hover { color: var(--text); text-decoration: underline; }
+.cp .formulaire-compte h2 { margin: 0; font-family: var(--ft); font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+.cp .formulaire-compte .intro { color: var(--mut); font-size: 13.5px; margin: 6px 0 18px; }
+.cp .formulaire-compte .champs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+.cp .formulaire-compte .champ { grid-column: 1 / -1; min-width: 0; margin-bottom: 14px; }
+.cp .formulaire-compte .champs .champ { margin-bottom: 0; }
+.cp .formulaire-compte .demi-largeur { grid-column: auto; }
+.cp .formulaire-compte .pleine-largeur { grid-column: 1 / -1; }
+.cp .formulaire-compte label { display: block; font-size: 12.5px; font-weight: 500; color: #d3d9cc; margin-bottom: 6px; }
+.cp .formulaire-compte input { display: block; width: 100%; height: 42px; border-radius: 10px; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--line2); padding: 0 12px; outline: none; transition: border-color 0.15s, background 0.15s; }
+.cp .formulaire-compte input::placeholder { color: var(--dim); }
+.cp .formulaire-compte input:hover { border-color: rgba(226, 236, 214, 0.28); }
+.cp .formulaire-compte input:focus { border-color: rgba(217, 164, 65, 0.65); background: rgba(0, 0, 0, 0.35); }
+.cp .formulaire-compte input[aria-invalid='true'] { border-color: var(--low); }
+.cp .formulaire-compte .aide { color: var(--dim); font-size: 11.5px; margin-top: 6px; line-height: 1.45; }
+.cp .formulaire-compte .aide p { margin: 4px 0 0; }
+.cp .formulaire-compte .criteres { list-style: none; padding: 0; margin: 0; }
+.cp .formulaire-compte .valide { color: #6cc48e; }
+.cp .formulaire-compte .invalide { color: #ec7a74; }
+.cp .formulaire-compte .attente { color: var(--dim); }
+.cp .formulaire-compte .erreur-champ { color: #ec7a74; font-size: 12px; margin: 6px 0 0; }
+.cp .champ-mdp { position: relative; }
+.cp .afficher-mdp { position: absolute; top: 0; right: 0; font-size: 12px; color: var(--gold2); }
+.cp .afficher-mdp:hover { text-decoration: underline; }
+.cp .message-erreur { background: rgba(214, 75, 69, 0.14); border: 1px solid rgba(214, 75, 69, 0.4); color: #f2b0ac; padding: 10px 12px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; }
+.cp .message-ok { background: rgba(63, 166, 107, 0.14); border: 1px solid rgba(63, 166, 107, 0.4); color: #a8e0bd; padding: 10px 12px; border-radius: 10px; font-size: 13px; margin: 0 0 14px; }
+.cp .formulaire-compte .envoyer { width: 100%; height: 44px; justify-content: space-between; margin-top: 16px; }
+.cp .bascule { text-align: center; font-size: 13px; color: var(--mut); margin: 14px 0 6px; }
+.cp .bascule button { color: var(--gold2); font-weight: 500; }
+.cp .bascule button:hover { text-decoration: underline; }
+@media (max-width: 760px) {
+  .cp .formulaire-compte .demi-largeur { grid-column: 1 / -1; }
+  .cp .modale-compte { max-height: 100%; }
+}

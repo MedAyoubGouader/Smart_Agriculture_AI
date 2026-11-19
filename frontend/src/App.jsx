@@ -1,32 +1,16 @@
-import { Outlet, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import RouteProtegee from './auth/RouteProtegee.jsx'
 import CartePublique from './carte/CartePublique.jsx'
-import EnTete from './components/EnTete.jsx'
-import ConnexionPage from './pages/ConnexionPage.jsx'
 import EspacePage from './pages/EspacePage.jsx'
-import InscriptionPage from './pages/InscriptionPage.jsx'
-
-// Pages de compte : en-tête clair + contenu.
-function MiseEnPageCompte() {
-  return (
-    <div className="application">
-      <EnTete />
-      <main id="contenu" className="contenu">
-        <Outlet />
-      </main>
-    </div>
-  )
-}
 
 export default function App() {
   return (
     <Routes>
-      {/* Accueil public = carte plein écran (maquette de design), sans compte. */}
+      {/* Accueil public = carte plein écran (maquette de design), sans compte.
+          Connexion et inscription se font dans une fenêtre modale par-dessus la carte. */}
       <Route path="/" element={<CartePublique />} />
-      <Route element={<MiseEnPageCompte />}>
-        <Route path="/connexion" element={<ConnexionPage />} />
-        <Route path="/inscription" element={<InscriptionPage />} />
-      </Route>
+      <Route path="/connexion" element={<Navigate to="/" replace state={{ auth: 'connexion' }} />} />
+      <Route path="/inscription" element={<Navigate to="/" replace state={{ auth: 'inscription' }} />} />
       {/* Espace connecté : pas encore traité. */}
       <Route
         path="/espace"
@@ -36,6 +20,7 @@ export default function App() {
           </RouteProtegee>
         }
       />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

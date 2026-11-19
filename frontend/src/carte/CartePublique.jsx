@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/useAuth.js'
 import CarteLeaflet from './CarteLeaflet.jsx'
 import Catalogue from './Catalogue.jsx'
@@ -8,6 +8,7 @@ import { Icone } from './elements.jsx'
 import EspaceTravail from './EspaceTravail.jsx'
 import FicheRegion from './FicheRegion.jsx'
 import Frise from './Frise.jsx'
+import ModaleCompte from './ModaleCompte.jsx'
 import Recherche from './Recherche.jsx'
 import './carte.css'
 
@@ -23,7 +24,11 @@ const nouvelleCouche = (o) => ({ uid: ++compteurCouches, visible: true, opacity:
 export default function CartePublique() {
   const { utilisateur } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const carte = useRef(null)
+  // Fenêtre de compte : null (fermée), 'connexion' ou 'inscription'. Une page protégée peut demander son ouverture.
+  const [compte, setCompte] = useState(() => (utilisateur ? null : (location.state?.auth ?? null)))
+  const suivant = location.state?.suivant
 
   const [geo, setGeo] = useState(null)
   const [couches, setCouches] = useState(() => [
@@ -121,7 +126,8 @@ export default function CartePublique() {
     }
     const touche = (e) => {
       if (e.key !== 'Escape') return
-      if (catalogue) setCatalogue(null)
+      if (compte) setCompte(null)
+      else if (catalogue) setCatalogue(null)
       else if (comparaisonActive) setComparaison(false)
       else if (selection) setSelection(null)
     }
@@ -131,7 +137,7 @@ export default function CartePublique() {
       document.removeEventListener('click', clic)
       document.removeEventListener('keydown', touche)
     }
-  }, [catalogue, comparaisonActive, selection])
+  }, [compte, catalogue, comparaisonActive, selection])
 
   const actions = {
     modifier: (uid, modif) => setCouches((cs) => cs.map((l) => (l.uid === uid ? { ...l, ...modif } : l))),
@@ -231,8 +237,8 @@ export default function CartePublique() {
           <button type="button" className="btn-gold" onClick={() => navigate('/espace')}>Mon espace</button>
         ) : (
           <>
-            <button type="button" className="btn-ghost" onClick={() => navigate('/connexion')}>Se connecter</button>
-            <button type="button" className="btn-gold inscription" onClick={() => navigate('/inscription')}>Créer un compte</button>
+            <button type="button" className="btn-ghost" onClick={() => setCompte('connexion')}>Se connecter</button>
+            <button type="button" className="btn-gold inscription" onClick={() => setCompte('inscription')}>Créer un compte</button>
           </>
         )}
       </header>
@@ -316,6 +322,18 @@ export default function CartePublique() {
           cleesSurCarte={couches.map(cleCatalogue)}
           onAjouter={ajouterCouche}
           onFermer={() => setCatalogue(null)}
+        />
+      )}
+
+      {compte && !utilisateur && (
+        <ModaleCompte
+          onglet={compte}
+          onOnglet={setCompte}
+          onFermer={() => setCompte(null)}
+          onConnecte={() => {
+            setCompte(null)
+            navigate(suivant ?? '/espace')
+          }}
         />
       )}
 
