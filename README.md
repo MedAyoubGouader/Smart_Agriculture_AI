@@ -25,12 +25,12 @@ Projet Django (`backend/`) :
 |---|---|
 | smartagriculture | Le projet : configuration générale (`settings.py`) et URLs principales |
 | core | Éléments communs (santé de l'API, permissions partagées…) |
+| comptes | C1 — Comptes, rôles (agriculteur / administrateur) et authentification JWT (repris d'Ayoub) |
 
 Chaque app est créée avec `python manage.py startapp` **à l'étape où sa fonctionnalité est développée** :
 
 | App prévue | Étape | Utilité |
 |---|---|---|
-| comptes | C1 | Comptes, rôles et authentification — Ayoub |
 | referentiels, donnees | C2 | Gouvernorats, cultures, saisons ; import de l'historique et du climat — Hajer |
 | cartographie | C3 | Carte et fiches régionales — Hajer |
 | prediction | C5 | Prédictions (import du tableau exporté depuis Colab) — Omar |
@@ -73,7 +73,12 @@ python -m venv venv
 .\venv\Scripts\python.exe manage.py runserver      # http://localhost:8000/api/core/health/
 ```
 
-Administration : http://127.0.0.1:8000/admin/
+Administration : http://127.0.0.1:8000/admin/ (un superutilisateur a automatiquement le rôle administrateur).
+Tests : `.\venv\Scripts\python.exe manage.py test` (l'utilisateur PostgreSQL doit avoir le droit `CREATEDB`).
+
+API des comptes (`/api/comptes/`) : `inscription/`, `verifier-mot-de-passe/`, `connexion/` (nom d'utilisateur
+ou e-mail → jetons JWT), `jeton/rafraichir/`, `deconnexion/`, `profil/`, `profil/mot-de-passe/`,
+`utilisateurs/` (administrateurs).
 
 ### 4. Frontend
 

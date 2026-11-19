@@ -5,6 +5,7 @@ Les valeurs propres à chaque poste (secrets, base de données, chemins) restent
 `.env` à la racine du dépôt (modèle : `.env.example`).
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -39,9 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Bibliothèques
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     # Applications du projet (une app = une fonctionnalité, créée à son étape avec startapp)
     "core.apps.CoreConfig",
+    "comptes.apps.ComptesConfig",  # C1
 ]
 
 MIDDLEWARE = [
@@ -88,6 +91,10 @@ DATABASES = {
     }
 }
 
+# Comptes (C1)
+AUTH_USER_MODEL = "comptes.Utilisateur"
+AUTHENTICATION_BACKENDS = ["comptes.backends.ConnexionBackend"]  # nom d'utilisateur ou e-mail
+
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -111,6 +118,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"]
     + (["rest_framework.renderers.BrowsableAPIRenderer"] if DEBUG else []),
+    # Authentification par jeton JWT ; toute route est privée sauf mention AllowAny.
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,
 }
 
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
