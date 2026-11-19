@@ -19,18 +19,22 @@ base **PostgreSQL 18**.
 └── .htaccess         bloque l'accès via Apache (projet placé dans htdocs)
 ```
 
-Applications Django (`backend/`) :
+Projet Django (`backend/`) :
 
 | Dossier | Utilité |
 |---|---|
-| config | Configuration générale et URLs du projet |
+| smartagriculture | Le projet : configuration générale (`settings.py`) et URLs principales |
 | core | Éléments communs (santé de l'API, permissions partagées…) |
-| comptes | Comptes, rôles et authentification — Ayoub |
-| analyses | Historique et comparaison — Ayoub |
-| referentiels | Gouvernorats, cultures, saisons — Hajer |
-| donnees | Import et historique des données — Hajer |
-| cartographie | Carte et fiches régionales — Hajer |
-| prediction | Prédictions (import du tableau exporté depuis Colab) — Omar |
+
+Chaque app est créée avec `python manage.py startapp` **à l'étape où sa fonctionnalité est développée** :
+
+| App prévue | Étape | Utilité |
+|---|---|---|
+| comptes | C1 | Comptes, rôles et authentification — Ayoub |
+| referentiels, donnees | C2 | Gouvernorats, cultures, saisons ; import de l'historique et du climat — Hajer |
+| cartographie | C3 | Carte et fiches régionales — Hajer |
+| prediction | C5 | Prédictions (import du tableau exporté depuis Colab) — Omar |
+| analyses | C7 | Historique et comparaison — Ayoub |
 
 Dans chaque application : `models.py` décrit les données, `serializers.py` valide les entrées (équivalent des
 formulaires), `views.py` contient les vues API en classes, `urls.py` les routes (préfixe `/api/<app>/`),

@@ -40,14 +40,8 @@ INSTALLED_APPS = [
     # Bibliothèques
     "rest_framework",
     "corsheaders",
-    # Applications du projet (une app = une fonctionnalité)
+    # Applications du projet (une app = une fonctionnalité, créée à son étape avec startapp)
     "core.apps.CoreConfig",
-    "comptes.apps.ComptesConfig",
-    "referentiels.apps.ReferentielsConfig",
-    "donnees.apps.DonneesConfig",
-    "cartographie.apps.CartographieConfig",
-    "analyses.apps.AnalysesConfig",
-    "prediction.apps.PredictionConfig",
 ]
 
 MIDDLEWARE = [
@@ -61,7 +55,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = "smartagriculture.urls"
 
 # Templates : utilisés seulement par l'interface d'administration Django.
 TEMPLATES = [
@@ -79,8 +73,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi.application"
-ASGI_APPLICATION = "config.asgi.application"
+WSGI_APPLICATION = "smartagriculture.wsgi.application"
+ASGI_APPLICATION = "smartagriculture.asgi.application"
 
 # PostgreSQL 18 classique (pas de PostGIS)
 DATABASES = {
@@ -93,8 +87,6 @@ DATABASES = {
         "PORT": env("DB_PORT", default="5432"),
     }
 }
-
-AUTH_USER_MODEL = "comptes.Utilisateur"
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
