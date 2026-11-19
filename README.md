@@ -55,7 +55,8 @@ CREATE DATABASE smartagri OWNER smartagri ENCODING 'UTF8' TEMPLATE template0;
 
 ### 2. Configuration
 
-Copier `.env.example` en `.env` à la racine, puis remplir `DJANGO_SECRET_KEY`, `DB_PASSWORD` et `RAW_DATA_DIR`.
+Copier `.env.example` en `.env` à la racine, puis remplir `DJANGO_SECRET_KEY`, `DB_PASSWORD`, `RAW_DATA_DIR` et
+`ADMIN_PASSWORD` (mot de passe du compte administrateur créé par `creer_admin`).
 Générer une clé secrète :
 
 ```powershell
@@ -69,7 +70,7 @@ cd backend
 python -m venv venv
 .\venv\Scripts\python.exe -m pip install -r requirements.txt
 .\venv\Scripts\python.exe manage.py migrate
-.\venv\Scripts\python.exe manage.py createsuperuser
+.\venv\Scripts\python.exe manage.py creer_admin        # compte admin (identifiants ADMIN_* du .env)
 .\venv\Scripts\python.exe manage.py runserver      # http://localhost:8000/api/core/health/
 ```
 

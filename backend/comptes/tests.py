@@ -233,3 +233,34 @@ class RolesTests(APITestCase):
     def test_superutilisateur_est_administrateur(self):
         superuser = Utilisateur.objects.create_superuser(username="super", password=MOT_DE_PASSE)
         self.assertEqual(superuser.role, Utilisateur.Role.ADMIN)
+
+
+class CreerAdminTests(APITestCase):
+    """Seeder du compte administrateur : python manage.py creer_admin."""
+
+    def test_creation_puis_mise_a_jour(self):
+        from django.core.management import call_command
+
+        call_command("creer_admin", username="chef", email="chef@example.com", password=MOT_DE_PASSE)
+        admin = Utilisateur.objects.get(username="chef")
+        self.assertTrue(admin.is_superuser and admin.is_staff)
+        self.assertEqual(admin.role, Utilisateur.Role.ADMIN)
+        self.assertTrue(admin.check_password(MOT_DE_PASSE))
+
+        # Relancer la commande ne crée pas de doublon et met le mot de passe à jour.
+        call_command("creer_admin", username="chef", password="Olivier#Sfax_2026")
+        self.assertEqual(Utilisateur.objects.filter(username="chef").count(), 1)
+        admin.refresh_from_db()
+        self.assertTrue(admin.check_password("Olivier#Sfax_2026"))
+
+        # L'admin peut se connecter à l'API et accéder à la liste des comptes.
+        response = self.client.post(reverse("comptes:connexion"), {"username": "chef", "password": "Olivier#Sfax_2026"}, format="json")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {response.data['access']}")
+        self.assertEqual(self.client.get(reverse("comptes:utilisateurs")).status_code, status.HTTP_200_OK)
+
+    def test_mot_de_passe_faible_refuse(self):
+        from django.core.management import CommandError, call_command
+
+        with self.assertRaises(CommandError):
+            call_command("creer_admin", username="chef", password="123")
+        self.assertFalse(Utilisateur.objects.filter(username="chef").exists())
