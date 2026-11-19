@@ -1,0 +1,24 @@
+# Versions validées sur Python 3.12 à 3.14 ; installer dans le venv de backend/ (pip install -r requirements.txt).
+# Ajouter une dépendance dans le même commit que le code qui l'utilise.
+
+# Web / API
+asgiref==3.13.0
+Django==6.1.3
+django-cors-headers==4.9.0
+django-environ==0.14.0
+djangorestframework==3.18.3
+psycopg2-binary==2.9.13
+sqlparse==0.6.1
+tzdata==2026.6
+
+# Données / ML (chargement des modèles .joblib exportés depuis Colab)
+cloudpickle==3.1.2
+joblib==1.6.0
+narwhals==2.27.1
+numpy==2.5.4
+pandas==3.0.6
+python-dateutil==2.9.0.post0
+scikit-learn==1.9.1
+scipy==1.18.1
+six==1.17.0
+threadpoolctl==3.7.0

@@ -1,0 +1,53 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2a1f;
+  background: #f4f6f1;
+}
+
+.carte-page {
+  position: relative;
+  height: 100%;
+}
+
+.carte {
+  height: 100%;
+  width: 100%;
+}
+
+.statut-api {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.statut-ok {
+  color: #1e6b2e;
+}
+
+.statut-erreur {
+  color: #a3271c;
+}
+
+.statut-chargement {
+  color: #6b6b6b;
+}

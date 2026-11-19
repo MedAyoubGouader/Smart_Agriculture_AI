@@ -1,83 +1,106 @@
 # Smart Agriculture Tunisia
 
-Projet Django — Mohamed Ayoub Gouader, Omar Cherif et Hajer Aroui.
+Plateforme web de prédiction du rendement agricole en Tunisie, avec carte interactive.
+Projet — Mohamed Ayoub Gouader, Omar Cherif et Hajer Aroui.
+Plan de réalisation : [docs/](docs/).
+
+Architecture : **API REST** (Django + Django REST Framework) consommée par un **frontend React** (Vite + Leaflet),
+base **PostgreSQL 18**.
 
 ## Dossiers
+
+```
+├── backend/          Django + DRF (API sur http://localhost:8000/api/<app>/)
+├── frontend/         React (Vite, JSX) + Leaflet (http://localhost:5173)
+├── data/geo/         GeoJSON des gouvernorats / délégations + table de référence
+├── data/processed/   fichiers préparés pour l'import (prédictions, données nettoyées)
+├── docs/             plan de réalisation
+├── .env.example      modèle de configuration (copier en .env)
+└── .htaccess         bloque l'accès via Apache (projet placé dans htdocs)
+```
+
+Applications Django (`backend/`) :
 
 | Dossier | Utilité |
 |---|---|
 | config | Configuration générale et URLs du projet |
-| comptes | Comptes et permissions — Ayoub |
+| core | Éléments communs (santé de l'API, permissions partagées…) |
+| comptes | Comptes, rôles et authentification — Ayoub |
 | analyses | Historique et comparaison — Ayoub |
 | referentiels | Gouvernorats, cultures, saisons — Hajer |
 | donnees | Import et historique des données — Hajer |
 | cartographie | Carte et fiches régionales — Hajer |
-| prediction | Entraînement et prédiction ML — Omar |
-| .venv | Bibliothèques Python locales, exclues de Git |
+| prediction | Prédictions (import du tableau exporté depuis Colab) — Omar |
 
-Dans chaque application, models.py décrit les données, views.py traite les requêtes,
-admin.py configure l’administration et migrations conserve les changements de base.
-Ces fichiers sont créés normalement par Django.
-Chaque application possède aussi son urls.py, son dossier templates/nom_application/
-et son dossier static/nom_application/. Le second niveau évite les collisions de noms.
-APP_DIRS=True permet à Django de trouver les pages dans les applications.
+Dans chaque application : `models.py` décrit les données, `serializers.py` valide les entrées (équivalent des
+formulaires), `views.py` contient les vues API en classes, `urls.py` les routes (préfixe `/api/<app>/`),
+`admin.py` l'administration et `migrations/` l'historique de la base.
 
-Le socle contient un utilisateur personnalisable et les trois référentiels.
-Les fonctionnalités du site restent à développer. Aucun compte administrateur n’est créé par défaut.
+Les données brutes ne sont pas dans le dépôt : chacun indique leur dossier dans `RAW_DATA_DIR` (`.env`).
 
-## Sur ce PC
+## Premier lancement (Windows)
 
-Ouvrir un terminal dans ce dossier :
+Prérequis : Python 3.12+ (testé avec 3.14), Node 20+, PostgreSQL 18, Git.
 
-```powershell
-.\.venv\Scripts\python.exe manage.py runserver
+### 1. Base de données (une fois, dans psql en tant que `postgres`)
+
+```sql
+CREATE ROLE smartagri WITH LOGIN PASSWORD 'choisir-un-mot-de-passe';
+CREATE DATABASE smartagri OWNER smartagri ENCODING 'UTF8' TEMPLATE template0;
 ```
 
-Ouvrir http://127.0.0.1:8000/ (redirige vers la page de cartographie).
-Pour créer son administrateur :
+### 2. Configuration
+
+Copier `.env.example` en `.env` à la racine, puis remplir `DJANGO_SECRET_KEY`, `DB_PASSWORD` et `RAW_DATA_DIR`.
+Générer une clé secrète :
 
 ```powershell
-.\.venv\Scripts\python.exe manage.py createsuperuser
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+```
+
+### 3. Backend
+
+```powershell
+cd backend
+python -m venv venv
+.\venv\Scripts\python.exe -m pip install -r requirements.txt
+.\venv\Scripts\python.exe manage.py migrate
+.\venv\Scripts\python.exe manage.py createsuperuser
+.\venv\Scripts\python.exe manage.py runserver      # http://localhost:8000/api/core/health/
 ```
 
 Administration : http://127.0.0.1:8000/admin/
 
-Pages de départ : /carte/, /comptes/, /referentiels/, /donnees/, /analyses/, /prediction/.
-Ces pages contiennent uniquement un titre et une navigation ; les fonctionnalités restent à réaliser.
-
-## Premier lancement chez un collègue (Windows)
-
-Installer Python 3.12 et Git, cloner le dépôt commun puis ouvrir un terminal dans le dossier du projet.
+### 4. Frontend
 
 ```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -c "from pathlib import Path; import secrets; Path('.env').write_text('DJANGO_SECRET_KEY='+secrets.token_urlsafe(50)+'\nDJANGO_DEBUG=1\n',encoding='utf-8')"
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py createsuperuser
-.\.venv\Scripts\python.exe manage.py runserver
+cd frontend
+npm install
+npm run dev                                         # http://localhost:5173
 ```
 
-La commande de création de .env est à exécuter une seule fois sur un nouveau poste.
-Sous macOS/Linux : utiliser python3.12 et .venv/bin/python à la place des chemins Windows.
-requirements.txt fixe les versions de Django et des bibliothèques de données/ML ; les dépendances sont installées par pip, pas par Git.
+En développement, Vite redirige `/api` vers Django. La carte affiche en bas l'état de la connexion API + base.
 
 ## Après un pull
 
 ```powershell
 git pull --ff-only
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py check
+cd backend
+.\venv\Scripts\python.exe -m pip install -r requirements.txt
+.\venv\Scripts\python.exe manage.py migrate
+.\venv\Scripts\python.exe manage.py check
+cd ..\frontend
+npm install
 ```
 
 ## Travail en groupe
 
 - Un dépôt commun, une branche par fonctionnalité : feat/ayoub-profil, feat/hajer-carte, feat/omar-prediction.
-- Chacun garde sa base locale. Versionner les migrations, jamais db.sqlite3 ou .venv.
-- Ne pas versionner .env, les mots de passe, les gros datasets ou les modèles entraînés.
+  Fusion dans `main` par pull request relue.
+- Chacun garde sa base locale. Versionner les migrations, jamais la base, `venv/` ou `node_modules/`.
+- Ne pas versionner `.env`, les mots de passe, les gros datasets ou les modèles entraînés.
 - Discuter les changements des modèles partagés avant de les modifier.
-- Ajouter les nouvelles dépendances à requirements.txt dans la même modification que le code qui les utilise.
-- Le dépôt local est initialisé sur main et relié à https://github.com/MedAyoubGouader/Smart_Agriculture_AI.git.
+- Ajouter les nouvelles dépendances (`requirements.txt` ou `package.json`) dans la même modification que le code qui
+  les utilise.
 
 Les paramètres actuels servent au développement local, pas au déploiement public.

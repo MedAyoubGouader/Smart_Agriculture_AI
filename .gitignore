@@ -1,10 +1,13 @@
 # Environnements et secrets
 .venv/
 .venv-*/
+venv/
 .env
 .env.*
 !.env.example
 .setup-tmp/
+
+# Python / Django
 __pycache__/
 *.py[cod]
 *.sqlite3
@@ -15,14 +18,28 @@ htmlcov/
 .ruff_cache/
 staticfiles/
 media/
+*.log
+
+# Node / Vite (frontend)
+node_modules/
+frontend/dist/
+.vite/
+
+# Données brutes et modèles (jamais dans Git ; données brutes dans RAW_DATA_DIR)
+raw/
 data/raw/*
 !data/raw/.gitkeep
 artifacts/*
 !artifacts/.gitkeep
 *.joblib
 *.pkl
-*.log
+*.nc
+*.zip
+
+# Éditeurs / OS
 .DS_Store
 Thumbs.db
+desktop.ini
 .idea/
 .vscode/
+*.swp

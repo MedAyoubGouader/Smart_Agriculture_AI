@@ -1,0 +1,25 @@
+﻿pcode,nom,nom_ar,region,alias_sources
+TN11,Tunis,تونس,North East,Tunis
+TN12,Ariana,أريانة,North East,Ariana
+TN13,Ben Arous,بن عروس,North East,Ben Arous;Benarous
+TN14,Manouba,منوبة,North East,Manouba;Manubah;Mannouba
+TN15,Nabeul,نابل,North East,Nabeul
+TN16,Zaghouan,زغوان,North East,Zaghouan
+TN17,Bizerte,بنزرت,North East,Bizerte
+TN21,Béja,باجة,North West,Béja;Beja
+TN22,Jendouba,جندوبة,North West,Jendouba
+TN23,Le Kef,الكاف,North West,Le Kef;Kef;El Kef
+TN24,Siliana,سليانة,North West,Siliana
+TN31,Sousse,سوسة,Centre East,Sousse
+TN32,Monastir,المنستير,Centre East,Monastir
+TN33,Mahdia,المهدية,Centre East,Mahdia
+TN34,Sfax,صفاقس,Centre East,Sfax
+TN41,Kairouan,القيروان,Centre West,Kairouan
+TN42,Kasserine,القصرين,Centre West,Kasserine;Kassérine
+TN43,Sidi Bouzid,سيدي بوزيد,Centre West,Sidi Bouzid;Sidi Bou Zid
+TN51,Gabès,قابس,South East,Gabès;Gabes
+TN52,Médenine,مدنين,South East,Médenine;Medenine
+TN53,Tataouine,تطاوين,South East,Tataouine;Tatouine
+TN61,Gafsa,قفصة,South West,Gafsa
+TN62,Tozeur,توزر,South West,Tozeur
+TN63,Kébili,قبلي,South West,Kébili;Kebili

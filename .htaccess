@@ -1,0 +1,3 @@
+# Le projet est dans htdocs uniquement par commodité : Apache ne doit rien servir ici.
+# (code source, .env, données). Le backend tourne via Django (port 8000), le frontend via Vite (port 5173).
+Require all denied
